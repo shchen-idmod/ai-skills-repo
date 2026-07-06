@@ -4,12 +4,14 @@ on:
   pull_request:
     paths:
       - 'skills/**'
+      - 'scripts/validate.py'
       - '.github/workflows/validate.yml'
   push:
     branches:
       - main
     paths:
       - 'skills/**'
+      - 'scripts/validate.py'
       - '.github/workflows/validate.yml'
 
 jobs:
@@ -27,41 +29,7 @@ jobs:
         run: pip install pyyaml
 
       - name: Validate every source.yaml
-        run: |
-          python3 - <<'PY'
-          import glob, sys, yaml, os
-
-          required_fields = {"name", "description", "owner", "repo", "version"}
-          errors = []
-
-          for path in glob.glob("skills/*/*/source.yaml"):
-              tier = path.split("/")[1]
-              with open(path) as f:
-                  data = yaml.safe_load(f) or {}
-
-              missing = required_fields - data.keys()
-              if missing:
-                  errors.append(f"{path}: missing fields {missing}")
-
-              if tier == "org-wide":
-                  evals_path = os.path.join(os.path.dirname(path), "evals.json")
-                  if not os.path.exists(evals_path):
-                      errors.append(
-                          f"{path}: tier is org-wide but no evals.json found "
-                          f"at {evals_path}"
-                      )
-
-              if tier not in ("project", "group", "org-wide"):
-                  errors.append(f"{path}: '{tier}' is not a valid tier folder")
-
-          if errors:
-              print("Manifest validation failed:")
-              for e in errors:
-                  print(f"  - {e}")
-              sys.exit(1)
-
-          print("All manifests valid.")
-          PY
+        run: python3 scripts/validate.py
 
       # Placeholder: wire in your real eval runner here once evals.json
       # exists for org-wide skills. This step intentionally does not fail
