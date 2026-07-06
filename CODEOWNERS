@@ -3,17 +3,19 @@
 # touching these paths can be merged (enable "Require review from Code
 # Owners" in branch protection for this to take effect).
 #
-# Replace the team/usernames below with your actual GitHub teams.
+# Single-owner setup: @shchen-idmod owns everything for now. When this
+# catalog moves to an org with real teams, swap these for the appropriate
+# @org/team handles (e.g. @your-org/skills-review-board for org-wide).
 
-# org-wide skills need 2 cross-functional approvers
-/skills/org-wide/  @your-org/skills-review-board
+# org-wide skills would need cross-functional approvers in a team setup
+/skills/org-wide/  @shchen-idmod
 
-# group skills need 1 approver from the owning group's lead team
-/skills/group/     @your-org/group-leads
+# group skills
+/skills/group/     @shchen-idmod
 
-# project skills: owning team self-approves, no central review needed
-/skills/project/   @your-org/skills-catalog-maintainers
+# project skills
+/skills/project/   @shchen-idmod
 
-# Catalog-level files (process changes) need the maintainers' sign-off
-/CONTRIBUTING.md   @your-org/skills-catalog-maintainers
-/CODEOWNERS        @your-org/skills-catalog-maintainers
+# Catalog-level files (process changes)
+/CONTRIBUTING.md   @shchen-idmod
+/CODEOWNERS        @shchen-idmod
