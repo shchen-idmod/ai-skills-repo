@@ -65,4 +65,5 @@ jobs:
       # exists for org-wide skills. This step intentionally does not fail
       # the build yet — flip to a hard gate once eval coverage is real.
       - name: Run evals (soft gate for now)
-        run: echo "TODO: run evals.json test suites for changed org-wide skills"
+        run: |
+          echo "TODO: run evals.json test suites for changed org-wide skills"
