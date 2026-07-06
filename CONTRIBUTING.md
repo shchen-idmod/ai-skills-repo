@@ -28,6 +28,11 @@ version: v1.2.0
 
 (Tier is implied by the folder it's in, so it isn't repeated in the YAML.)
 
+`version` is **optional but recommended** — it pins a tagged release in the
+owning repo. Without it, `scripts/install.py` falls back to the repo's
+default branch, so installs are not reproducible. `name`, `description`,
+`owner`, and `repo` are required.
+
 ## Review requirements by tier
 
 - **`project`** — 1 approval from the owning team. Fastest path, lowest bar.

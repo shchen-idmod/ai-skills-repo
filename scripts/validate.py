@@ -14,7 +14,9 @@ import sys
 
 import yaml
 
-REQUIRED_FIELDS = {"name", "description", "owner", "repo", "version"}
+# version is recommended (pins a release) but optional: without it the
+# installer falls back to the source repo's default branch, unpinned.
+REQUIRED_FIELDS = {"name", "description", "owner", "repo"}
 VALID_TIERS = ("project", "group", "org-wide")
 
 
