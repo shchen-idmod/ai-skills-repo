@@ -1,0 +1,19 @@
+# CODEOWNERS
+# GitHub requires reviews from the matching owners below before a PR
+# touching these paths can be merged (enable "Require review from Code
+# Owners" in branch protection for this to take effect).
+#
+# Replace the team/usernames below with your actual GitHub teams.
+
+# org-wide skills need 2 cross-functional approvers
+/skills/org-wide/  @your-org/skills-review-board
+
+# group skills need 1 approver from the owning group's lead team
+/skills/group/     @your-org/group-leads
+
+# project skills: owning team self-approves, no central review needed
+/skills/project/   @your-org/skills-catalog-maintainers
+
+# Catalog-level files (process changes) need the maintainers' sign-off
+/CONTRIBUTING.md   @your-org/skills-catalog-maintainers
+/CODEOWNERS        @your-org/skills-catalog-maintainers

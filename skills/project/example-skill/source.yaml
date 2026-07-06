@@ -1,0 +1,5 @@
+name: example-skill
+description: Replace this with a real skill — this folder just shows the expected shape.
+owner: idm-team
+repo: https://github.com/your-org/example-skill-repo
+version: v0.1.0

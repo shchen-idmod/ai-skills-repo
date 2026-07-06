@@ -1,0 +1,6 @@
+name: idm-pkg-install
+description: Installs, sets up, and troubleshoots IDM packages or repositories from PyPI, a GitHub repo, or a local path — picking the right source, environment, and install mode.
+owner: gf-ai-skills
+repo: https://github.com/shchen-idmod/gf-agent-skills
+version: v1.0.0
+path: groups/idm/skills/software-tools/idm-pkg-install

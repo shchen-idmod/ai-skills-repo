@@ -1,0 +1,63 @@
+name: Validate skill manifests
+
+on:
+  pull_request:
+    paths:
+      - 'skills/**'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install pyyaml
+
+      - name: Validate every source.yaml
+        run: |
+          python3 - <<'PY'
+          import glob, sys, yaml, os
+
+          required_fields = {"name", "description", "owner", "repo", "version"}
+          errors = []
+
+          for path in glob.glob("skills/*/*/source.yaml"):
+              tier = path.split("/")[1]
+              with open(path) as f:
+                  data = yaml.safe_load(f) or {}
+
+              missing = required_fields - data.keys()
+              if missing:
+                  errors.append(f"{path}: missing fields {missing}")
+
+              if tier == "org-wide":
+                  evals_path = os.path.join(os.path.dirname(path), "evals.json")
+                  if not os.path.exists(evals_path):
+                      errors.append(
+                          f"{path}: tier is org-wide but no evals.json found "
+                          f"at {evals_path}"
+                      )
+
+              if tier not in ("project", "group", "org-wide"):
+                  errors.append(f"{path}: '{tier}' is not a valid tier folder")
+
+          if errors:
+              print("Manifest validation failed:")
+              for e in errors:
+                  print(f"  - {e}")
+              sys.exit(1)
+
+          print("All manifests valid.")
+          PY
+
+      # Placeholder: wire in your real eval runner here once evals.json
+      # exists for org-wide skills. This step intentionally does not fail
+      # the build yet — flip to a hard gate once eval coverage is real.
+      - name: Run evals (soft gate for now)
+        run: echo "TODO: run evals.json test suites for changed org-wide skills"
